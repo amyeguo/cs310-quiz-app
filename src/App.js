@@ -7,22 +7,17 @@ import "./App.css";
 
 import React, { useState, useEffect } from 'react';
 
+var question_list;
+
 
 const Flashcard = ({ question }) => {
   const [showAnswer, setShowAnswer] = useState(false);
 
-  useEffect(() => {
-    fetch("http://localhost:3000/test") // Call the API route you want
-      .then(response => response.json()) // You always have to run this to get the data
-      .then(data => {
-        // Treat "data" as a variable with the whole API response and do whatever within this function
-        console.log(data)
-      }) 
-  }, [])
 
   function toggleShowAnswer() {
     setShowAnswer(!showAnswer)
   }
+
   return (
     showAnswer ? 
     
@@ -34,7 +29,7 @@ const Flashcard = ({ question }) => {
         <br></br>
         
         <Typography variant="body2" color="text.secondary">
-          {question.answer}
+          {question.answer_text}
         </Typography>
         <br></br>
 
@@ -55,7 +50,7 @@ const Flashcard = ({ question }) => {
         <br></br>
         
         <Typography variant="body2" color="text.secondary">
-          {question.question}
+          {question.question_id-2000}.{question.question_text}
         </Typography>
         <br></br>
 
@@ -69,29 +64,48 @@ const Flashcard = ({ question }) => {
 }
 
 
+
+
 function App() {
-  
 
-  const [question, setQuestion] = useState({question: "What is the powerhouse of the cell?", answer: "mitochondria"})
+  const [question, setQuestion] = useState( {question: "What is the powerhouse of the cell?", answer: "mitochondria"}    )
 
-  const questions = [
-    {
-      question: "What organelle lives in the rough ER?",
-      answer: "ribosome",
-    },
-    {
-      question: "What is the Big O runtime of merge sort?",
-      answer: "nlogn"
-    }, 
-    {
-      question: "What does GPU stand for?",
-      answer: "graphical processing unit"
-    }
-  ]
 
-  function getNextQuestion() {
-    setQuestion(questions[Math.floor(Math.random() * questions.length)]);
+function getNextQuestion() {
+
+    console.log("Called?")
+
+    fetch("http://localhost:3000/test")
+    .then((response) => response.json())
+    .then((data) => { 
+      console.log(data);
+      setQuestion(data['message'][0]); 
+    })
+    
   }
+
+  useEffect(() => {
+    getNextQuestion();
+  }, [])
+
+
+
+
+  // const questions = [
+  //   {
+  //     question: "What organelle lives in the rough ER?",
+  //     answer: "ribosome",
+  //   },
+  //   {
+  //     question: "What is the Big O runtime of merge sort?",
+  //     answer: "nlogn"
+  //   }, 
+  //   {
+  //     question: "What does GPU stand for?",
+  //     answer: "graphical processing unit"
+  //   }
+  // ]
+
 
   return (
     <div className="App">
