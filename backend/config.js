@@ -9,7 +9,7 @@
 const config = {
     quizapp_config: "quizapp-config",
     quizapp_profile: "s3readonly",
-    service_port: 3000,
+    service_port: 8080,
     page_size: 10
   };
   
