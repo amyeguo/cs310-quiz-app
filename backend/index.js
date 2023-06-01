@@ -12,18 +12,20 @@ app.use(cors({
 // Define routes
 app.get('/', (req, res) => {
   res.send('Hello, World!');
+  console.log("Are you printing this instead?");
 });
 
 app.get("/test", (req, res) => {
     try {
-        var sql = "SELECT * FROM questions;";
+        var sql = "SELECT * FROM questions ORDER BY RAND() LIMIT 1;";
+        console.log("Do you even get here...");
 
         dbConnection.query(sql, (err, rows) => {
-        //
-        // query has finished:
-        //
-        console.log(err);
-        console.log(rows);
+          //
+          // query has finished:
+          //
+          console.log(err);
+          console.log(rows);
         
         res.status(200).json({
             "message": rows
