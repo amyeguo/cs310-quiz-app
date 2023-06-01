@@ -5,11 +5,20 @@ import Button from '@mui/material/Button';
 
 import "./App.css";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 
 const Flashcard = ({ question }) => {
   const [showAnswer, setShowAnswer] = useState(false);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/test") // Call the API route you want
+      .then(response => response.json()) // You always have to run this to get the data
+      .then(data => {
+        // Treat "data" as a variable with the whole API response and do whatever within this function
+        console.log(data)
+      }) 
+  }, [])
 
   function toggleShowAnswer() {
     setShowAnswer(!showAnswer)
