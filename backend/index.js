@@ -1,19 +1,18 @@
-const express = require("express");
-const cors = require("cors");
+
+const express = require('express');
+// const cors = require('cors');
 const app = express();
-const port = 3000;
+const config = require('./config.js');
+const dbConnection = require('./database.js')
+const path = require("path");
 
-const dbConnection = require("./database.js");
 
-app.use(
-  cors({
-    origin: "http://localhost:3001",
-  })
-);
+app.use(express.static(path.join(__dirname, 'build')));
+
 
 // Define routes
-app.get("/", (req, res) => {
-  res.send("Hello, World!");
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 app.get("/test", (req, res) => {
@@ -38,7 +37,6 @@ app.get("/test", (req, res) => {
   }
 });
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.listen(config.service_port, () => {
+  console.log(`Server is running on http://localhost:${config.service_port}`);
 });

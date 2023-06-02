@@ -26,7 +26,6 @@ function App() {
       setQuestion(questionList[questionIndex]);
     }
   }
-
   function startQuiz() {
     setQuestionIndex(0);
     setQuestion(questionList[0]);
