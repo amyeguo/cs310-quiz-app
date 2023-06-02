@@ -3,15 +3,15 @@ const express = require('express');
 const app = express();
 const config = require('./config.js');
 const dbConnection = require('./database.js')
+const path = require("path");
 
-// app.use(cors({
-//   origin: 'http://localhost:3001'
-// }));
+
+app.use(express.static(path.join(__dirname, 'build')));
+
 
 // Define routes
 app.get('/', (req, res) => {
-  res.send('Hello, World!');
-  console.log("Are you printing this instead?");
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 app.get("/test", (req, res) => {
@@ -39,5 +39,5 @@ app.get("/test", (req, res) => {
 
 // Start the server
 app.listen(config.service_port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on http://localhost:${config.service_port}`);
 });

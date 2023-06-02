@@ -98,7 +98,7 @@ function getNextQuestion() {
 
     console.log("Called?")
 
-    fetch("http://localhost:3000/test")
+    fetch("/test")
     .then((response) => response.json())
     .then((data) => { 
       console.log(data);
@@ -134,7 +134,7 @@ function getNextQuestion() {
       >
         Quiz App
       </Typography>
-      <Flashcard key={crypto.randomUUID()} question={question}></Flashcard>
+      <Flashcard question={question}></Flashcard>
       <Button
         variant="contained"
         color="primary"
